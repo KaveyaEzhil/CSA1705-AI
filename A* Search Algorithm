@@ -1,0 +1,30 @@
+graph = {
+    'A': [('B', 1), ('C', 3)],
+    'B': [('D', 2), ('E', 4)],
+    'C': [('F', 2)],
+    'D': [],
+    'E': [('G', 2)],
+    'F': [('G', 1)],
+    'G': []
+}
+
+h = {'A': 5, 'B': 4, 'C': 3, 'D': 3, 'E': 1, 'F': 1, 'G': 0}
+
+def astar(start, goal):
+    open_list = [(h[start], 0, start, [start])]
+
+    while open_list:
+        open_list.sort()
+        f, g, node, path = open_list.pop(0)
+
+        if node == goal:
+            print("Path:", path)
+            print("Cost:", g)
+            return
+
+        for neighbor, cost in graph[node]:
+            new_g = g + cost
+            new_f = new_g + h[neighbor]
+            open_list.append((new_f, new_g, neighbor, path + [neighbor]))
+
+astar('A', 'G')
