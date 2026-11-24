@@ -1,0 +1,36 @@
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [],
+    'E': ['G'],
+    'F': ['G'],
+    'G': []
+}
+
+h = {'A': 5, 'B': 4, 'C': 2, 'D': 3, 'E': 1, 'F': 1, 'G': 0}
+
+def gbfs(start, goal):
+    visited = []
+    queue = [(h[start], start)]
+
+    while queue:
+        queue.sort()
+        _, node = queue.pop(0)
+
+        if node in visited:
+            continue
+
+        visited.append(node)
+
+        if node == goal:
+            print("Path:", visited)
+            return
+
+        for child in graph[node]:
+            if child not in visited:
+                queue.append((h[child], child))
+
+    print("Goal not found")
+
+gbfs('A', 'G')
